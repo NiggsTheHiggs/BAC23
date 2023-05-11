@@ -1,13 +1,10 @@
-"""
-Simulation that sweeps flow rate while maintaining constant BHP by adjusting the choke opening with a PI Controller
-"""
 import openlab
 import time
 import numpy
 import matplotlib.pyplot as plt
 
-config_name = "2500m+2500m"
-INITIAL_BIT_DEPTH= 5000
+config_name = "2500m"
+INITIAL_BIT_DEPTH= 2500
 
 # results we want 
 tags=["SPP", "DownholeECD", "FlowRateOut", "ChokeOpening", "DownholePressure"]
@@ -19,8 +16,8 @@ PLOT = False
 
 #Ramp settings
 rampIndex = 0
-rampValuesDown = numpy.arange(2500, 300, -200)/60000
-rampValuesUp = numpy.arange(400,2600,200)/60000
+rampValuesDown = numpy.arange(2500, 1500, -100)/60000
+rampValuesUp = numpy.arange(1600,2600,100)/60000
 rampValues = numpy.concatenate((rampValuesDown, rampValuesUp))
 rampStepDuration = 30 #seconds
 rampStartTime = 100 #seconds
@@ -30,10 +27,10 @@ rampTimeSteps =numpy.arange(rampStartTime, rampValues.shape[0]*rampStepDuration-
 #-1 gets last value
 maxTimeSteps = rampTimeSteps[-1]+rampStepDuration 
 #PI controller settings
-kp = -0.007 #-0.015
-ki = kp/10
+kp = -0.005 #-0.015
+ki = kp/3
 ts = 1
-referenceBHPPressure = 710 *100000 #Pa
+referenceBHPPressure = 380 *100000 #Pa
 initialChokeOpening = 0.25 # closed:0, open:1
 pi = openlab.piController.Controler(kp, ki, ts, referenceBHPPressure,initialChokeOpening)
 
@@ -42,13 +39,13 @@ pi = openlab.piController.Controler(kp, ki, ts, referenceBHPPressure,initialChok
 FLOW_UNIT_CONV_FACTOR= 1.66666667 * 0.00001#float("10e-5") # l/min --> m^3/s
 PRESSURE_CONV_FACTOR= 100000.0 # float("10e5") # bar-->pascal
 
-sim_name= "Python sweep simulation"
+sim_name= "Python sweep simulation AGG TuNing"
 print("Configuration ID: " + session.configuration_id(config_name))
 print("Simulation name : " + sim_name)
 print("Initializing Simulation...")
 
 #initialize and run the sim
-sim = session.create_simulation(config_name,sim_name,5000)
+sim = session.create_simulation(config_name,sim_name,2500)
 
 #configure plot 
 plt.show()
