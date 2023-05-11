@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Apr 20 09:06:06 2023
-
-@author: henri
-"""
-
 # Importerer pakker
 import openlab
 import numpy as np
@@ -15,16 +8,16 @@ session = openlab.http_client(username="henrik_2203@hotmail.com", apikey="380198
 
 
 # Setter opp simuleringen
-config_name = "2500m+2500m"
-sim_name = "prøve løve"
-initial_depth = 5000
+config_name = "2500m"
+sim_name = "STANDARD_VERDIER_008_4"
+initial_depth = 2500
 
 #PI controller settings
-referenceBHPPressure = 710 *100000 # Pa
+referenceBHPPressure = 380 *100000 # Pa
 initialChokeOpening = 1 # 0 = closed , 1 = open
 
-kp = -0.007 # first try for tuning the pi controller (try with 0.02 afterwards)
-ki = kp/10
+kp = -0.008 # first try for tuning the pi controller (try with 0.02 afterwards)
+ki = kp/4
 ts = 1
 pi = openlab.piController.Controler(kp, ki, ts, referenceBHPPressure,initialChokeOpening)
 
