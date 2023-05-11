@@ -10,7 +10,7 @@ INITIAL_BIT_DEPTH= 2500
 tags=["SPP", "DownholeECD", "FlowRateOut", "ChokeOpening", "DownholePressure"]
 
 #create new client session
-session = openlab.http_client(username="henrik_2203@hotmail.com", apikey="38019860924EDFAA279988875E00419FE1C51B8E360F35C5707E231E2AB0D40A", licenseguid="cf9e0be9-9670-493e-8753-381c12f423f3", environment="dev")
+session = openlab.http_client(username="", apikey="", licenseguid="", environment="dev")
 
 PLOT = False
 
